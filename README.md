@@ -1,4 +1,8 @@
-# essentials
+# Галсанов Булат КИ20-13Б
+
+## Веб-сервис доставки еды Fudo
+
+### Проект разрабатывается в рамках дисциплины "Технологии веб-ГИС" на основе макета, взятого в просторах коммьюнити: https://www.figma.com/file/gi6WJYnKi2XrFuoRhWtNFi/Food-delivery-website-(Community)?type=design&mode=design&t=VVBAPIfafYbkWz8v-0
 
 ## Project setup
 
