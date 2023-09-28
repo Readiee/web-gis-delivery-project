@@ -1,20 +1,18 @@
 export default [
 	{
-		path: '/auth',
+		path: '/login',
 		name: 'login',
 		component: () => import('@/views/auth/LoginView.vue'),
 		meta: {
 			middleware: true // Только для неавторизованных
 		},
-		children: [
-			{
-				path: '/reg',
-				name: 'reg',
-				component: () => import('@/views/auth/RegView.vue'),
-				meta: {
-					middleware: true // Только для неавторизованных
-				}
-			}
-		]
+	},
+	{
+		path: '/signup',
+		name: 'signup',
+		component: () => import('@/views/auth/RegView.vue'),
+		meta: {
+			middleware: true // Только для неавторизованных
+		}
 	}
 ]

@@ -13,7 +13,7 @@ module.exports = {
 			'error',
 			{
 				singleline: {
-					max: 4,
+					max: 6,
 				},
 				multiline: {
 					max: 1,

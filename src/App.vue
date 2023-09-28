@@ -1,14 +1,9 @@
 <template>
   <v-app id="inspire">
-    <div class="nav d-flex align-center mb-2" style="height: 80px;">
-      <v-container class="align-center d-flex justify-space-between">
-        <div class="d-flex align-center" style="cursor: pointer;" @click="router.push({ name: 'home' })">
-          <v-img
-            src="@/assets/images/logo.svg"
-            max-width="40"
-            min-width="40"
-            style="cursor: pointer;"
-          />
+    <div class="nav mb-2">
+      <v-container class="align-center d-flex justify-space-between" style="height: 80px;">
+        <div class="d-flex align-center pointer" @click="router.push({ name: 'home' })">
+          <v-img src="@/assets/images/logo.svg" max-width="40" min-width="40" class="pointer" />
           <h3 class="ms-3 font-weight-black">Fudo</h3>
         </div>
         
@@ -36,7 +31,7 @@
           class="hover me-10 material-icons-outlined"
           style="cursor: pointer;"
         />
-        <v-btn color="primary" prepend-icon="login" size="large">Login</v-btn>
+        <v-btn color="primary" prepend-icon="login" size="large" text="Login" @click="router.push( { name: 'login' })" />
       </v-container>
     </div>
 
@@ -45,7 +40,7 @@
     </v-main>
 
     <v-container>
-      <div class="footer d-flex justify-space-between my-12">
+      <div class="footer d-flex justify-space-between mb-12" style="margin-top: 100px;">
         <div class="footer__col">
           <div class="d-flex align-center" @click="router.push({ name: 'home' })">
             <v-img
@@ -57,7 +52,7 @@
             <h3 class="ms-3 font-weight-black">Fudo</h3>
           </div>
 
-          <p class="text-caption-2">Our job is to filling your tummy with <br> delicious food and with fast <br> and free delivery.</p>
+          <p>Our job is to filling your tummy with <br> delicious food and with fast <br> and free delivery.</p>
 
           <ul class="d-flex align-center" style="gap: 16px;">
             <li><a href="https://t.me/call_me_cringe"><img src="@/assets/images/links/tg_logo.svg" alt="vk" style="height: 24px;"></a></li>
@@ -124,8 +119,8 @@ body {
 }
 
 .v-container {
-  width: 1320px !important;
-  max-width: 1320px !important;
+  width: 1280px !important;
+  max-width: 1280px !important;
   padding: 0 !important;
 }
 
@@ -192,5 +187,32 @@ a:hover, .hover:hover {
   align-items: center;
   overscroll-behavior: contain;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.grey {
+  color:#828282
+}
+
+.text-caption-color {
+  color: $color-primary;
+  font-weight: 600;
+  letter-spacing: 2.88px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 4rem;
+  line-height: 4.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  font-weight: 900;
+}
+
 
 </style>

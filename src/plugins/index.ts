@@ -9,14 +9,16 @@ import { loadFonts } from './webfontloader'
 import vuetify from './vuetify'
 import pinia from '../store'
 import router from '../router'
+// import veeValidate from './vee-validate'
 
 // Types
 import type { App } from 'vue'
 
 export function registerPlugins (app: App) {
-  loadFonts()
-  app
-    .use(vuetify)
-    .use(router)
-    .use(pinia)
+	loadFonts()
+	app
+		.use(vuetify)
+		.use(router)
+		.use(pinia)
+		// .use(veeValidate)
 }
