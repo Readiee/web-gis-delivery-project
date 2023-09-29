@@ -35,12 +35,12 @@
       </v-container>
     </div>
 
-    <v-main>
+    <v-main style="margin-top: 110px;">
       <router-view />
     </v-main>
 
     <v-container>
-      <div class="footer d-flex justify-space-between mb-12" style="margin-top: 100px;">
+      <div class="footer d-flex justify-space-between mb-12" style="margin-top: 120px;">
         <div class="footer__col">
           <div class="d-flex align-center" @click="router.push({ name: 'home' })">
             <v-img
@@ -95,7 +95,8 @@ const footerCols = [
 
 <style lang="scss">
 $color-primary: #EB5757;
-$box-shadow: 0px 0px 45px 10px rgba(255, 219, 165, 0.30);
+$color-secondary: #FFDDCC;
+$box-shadow: 0px 0px 45px 10px rgba(182, 182, 182, 0.3);
 
 
 body {
@@ -126,7 +127,7 @@ body {
 
 .billet {
   background-color: #FEE9DE;
-  color: #EB5757;
+  color: $color-primary;
   border-radius: 200px;
   padding: 16px 24px;
 }
@@ -213,6 +214,20 @@ h2 {
   line-height: 2.5rem;
   font-weight: 900;
 }
+
+.bgr-secondary {
+  background-color: $color-secondary;
+}
+
+.nav {
+  position: fixed;
+  width: 100vw;
+  z-index: 10;
+  top: 0;
+  background-color: #fff;
+  box-shadow: $box-shadow;
+}
+
 
 
 </style>

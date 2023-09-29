@@ -19,7 +19,7 @@ const lightTheme: ThemeDefinition = {
 		surface: '#fff',
 		primary: '#EB5757',
 		'primary-lighten-1': '#FEE9DE',
-		secondary: '#898989',
+		secondary: '#fafafa',
 	},
 }
 
@@ -27,7 +27,7 @@ const darkTheme: ThemeDefinition = {
 	dark: true,
 	colors: {
 		primary: '#EB5757',
-		secondary: '#898989',
+		secondary: '#fafafa',
 	},
 }
 

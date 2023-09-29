@@ -1,9 +1,9 @@
 export const categories = [
-	{ id: 0, title: 'Burgers', icon: 'src/assets/images/dishes/icons/burgers.png'},
-	{ id: 1, title: 'Pizza', icon: 'src/assets/images/dishes/icons/pizza.png'},
-	{ id: 2, title: 'Sushi', icon: 'src/assets/images/dishes/icons/sushi.png'},
-	{ id: 3, title: 'Drinks', icon: 'src/assets/images/dishes/icons/soda.png'},
-	{ id: 4, title: 'Ice Cream', icon: 'src/assets/images/dishes/icons/ice_cream.png'},
+	{ id: 0, title: 'Burgers', icon: '/src/assets/images/dishes/icons/'},
+	{ id: 1, title: 'Pizza', icon: '/src/assets/images/dishes/icons/pizza.png'},
+	{ id: 2, title: 'Sushi', icon: '/src/assets/images/dishes/icons/sushi.png'},
+	{ id: 3, title: 'Drinks', icon: '/src/assets/images/dishes/icons/soda.png'},
+	{ id: 4, title: 'Ice Cream', icon: '/src/assets/images/dishes/icons/ice_cream.png'},
 ]
 
 export const dishes = [

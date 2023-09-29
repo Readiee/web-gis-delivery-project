@@ -6,7 +6,7 @@
 
         <v-text-field class="mb-3" v-bind="email" name="email" label="Email" />
         <v-text-field class="mb-3" type="password" v-bind="password" name="password" label="Password" />
-        <v-text-field class="" type="confirm" v-bind="confirm" name="confirm" label="Confirm password" />
+        <v-text-field class="" type="password" v-bind="confirm" name="confirm" label="Confirm password" />
         <v-checkbox class="mb-6 my-0" v-bind="terms" label="I agree with Terms of Use" color="primary" />
 
         <!-- <v-radio-group>
