@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <div class="nav mb-2">
-      <v-container class="align-center d-flex justify-space-between" style="height: 80px;">
+      <v-container class="align-center d-flex justify-space-between" style="height: 80px; position: relative;">
         <div class="d-flex align-center pointer" @click="router.push({ name: 'home' })">
           <v-img src="@/assets/images/logo.svg" max-width="40" min-width="40" class="pointer" />
           <h3 class="ms-3 font-weight-black">Fudo</h3>
@@ -19,19 +19,25 @@
 
         <v-spacer />
         
-        <v-icon
-          icon="search"
-          size="x-large"
-          class="hover me-8 material-icons-outlined"
-          style="cursor: pointer;"
-        />
-        <v-icon
-          icon="shopping_bag"
-          size="x-large"
-          class="hover me-10 material-icons-outlined"
-          style="cursor: pointer;"
-        />
-        <v-btn color="primary" prepend-icon="login" size="large" text="Login" @click="router.push( { name: 'login' })" />
+        <v-icon icon="search" size="x-large" class="hover me-8 material-icons-outlined" style="cursor: pointer;" />
+        
+        <v-hover close-delay="300">
+          <template #default="{ isHovering, props }">
+            <div v-bind="props">
+              <v-badge :content="totalItems()" class="me-10 hover" style="cursor: pointer;" color="primary">
+                <v-icon icon="shopping_bag" size="x-large" class="material-icons-outlined" :color="isHovering ? 'primary' : 'black'" />
+              </v-badge>
+            
+              <the-cart-component v-if="isHovering" class="cart" />
+            </div>
+          </template>
+        </v-hover>
+        
+        <v-btn v-if="!loggedIn" color="primary" prepend-icon="login" size="large" text="Login" @click="router.push( { name: 'login' })" />
+        <div v-else class="d-flex align-center">
+          <list-item :title="user.name" :caption="user.phone" class="mr-8" />
+          <v-btn color="grey" text="Log out" prepend-icon="logout" @click="logout" />
+        </div>
       </v-container>
     </div>
 
@@ -76,6 +82,11 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { useCartStore } from '@/store/cart'
+import TheCartComponent from '@/components/TheCartComponent.vue'
+import { useAuthStore } from './store/auth'
+import ListItem from './components/UI/ListItem.vue'
+import { computed } from 'vue'
 
 const router = useRouter()
 const routes = [
@@ -91,6 +102,12 @@ const footerCols = [
 	{ title: 'Support', links: ['Account', 'Support Center', 'Feedback', 'Contact Us', 'Accessibilty'] },
 	{ title: 'Get in Touch', links: ['Question or feedback?', 'We’d love to hear from you'] },
 ]
+
+const { totalItems } = useCartStore()
+const { user, logout } = useAuthStore()
+const loggedIn = computed(() => {
+	return user.phone != ''
+})
 </script>
 
 <style lang="scss">
@@ -228,6 +245,13 @@ h2 {
   box-shadow: $box-shadow;
 }
 
+.cart {
+  position: absolute;
+  top: 80px; 
+  right: 0;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
 
 
 </style>

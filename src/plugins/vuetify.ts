@@ -66,7 +66,7 @@ export default createVuetify({
 		VCard: {
 			style: [
 				{ borderRadius: '15px' },
-				{ padding: '32px' },
+				{ padding: '40px' },
 				{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.2)' },
 			],
 		},

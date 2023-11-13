@@ -3,22 +3,28 @@
     <template #activator="{ props }">
       <div v-bind="props" class="text-sad">
         <v-card class="dish-card" width="300" height="300" style="padding: 0;">
-          <v-img :src="$props.img" class="dish-image" height="100%" cover style="color: white; pointer-events: none;" />
+          <v-img :src="dish.img" class="dish-image" height="100%" cover style="color: white; pointer-events: none;" />
 
           <div class="dish-card__text">
-            <h3>{{ title }}</h3>
-            <h3 class="mb-2"><span class="font-weight-black" style="color: orange;">$ </span>{{ price }}</h3>
+            <h3>{{ dish.title }}</h3>
+            <h3 class="mb-2"><span class="font-weight-black" style="color: orange;">$ </span>{{ dish.price }}</h3>
             
-            <div style="width: 160px;">
+            <div style="width: 155px;">
               <v-btn
                 v-if="count == 0"
-                style="padding: 24px; width: 100%;"  
-                @click.stop="addToCart"
+                style="padding: 22px; width: 100%;"  
+                @click.stop="addDish"
               >
                 В корзину
               </v-btn>
 
-              <input-number v-else v-model="count" style="width=100%" />
+              <input-number
+                v-else 
+                v-model="count" 
+                style="width=100%"
+                @add="addDish"
+                @remove="removeDish"
+              />
             </div>
           </div>
         </v-card>
@@ -45,20 +51,36 @@
 </template>
   
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import InputNumber from '@/components/UI/InputNumber.vue'
+import { CartItem, Dish } from '@/data/types'
+import { useCartStore } from '@/store/cart'
 
   
-const props = defineProps({
-	img: { type: String, required: true },
-	title: { type: String, required: true },
-	price: { type: Number, required: true }
+const componentProps = defineProps({
+	dish: { type: Object as () => Dish, required: true },
 })
 
-const count = ref(0)
-  
-const addToCart = () => {
-	count.value += 1
+const count = computed(() => {
+	return itemCount(item.id)
+}) 
+
+const item: CartItem = {
+	id: componentProps.dish.id,
+	title: componentProps.dish.title,
+	price: componentProps.dish.price,
+	quantity: 0,
+	img: componentProps.dish.img,
+}
+
+const { addToCart, removeFromCart, itemCount } = useCartStore()
+
+function addDish() {
+	addToCart(item)
+}
+
+function removeDish() {
+	removeFromCart(item.id)
 }
 </script>
   

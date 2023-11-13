@@ -3,7 +3,7 @@
     <v-avatar v-if="props.img" :image="props.img" />
     <div class="list-item__end ml-2">
       <h3 class="mt-2 font-weight-bold">{{ props.title }}</h3>
-      <p v-if="props.caption" style="width: 270px;">{{ props.caption }}</p>
+      <p v-if="props.caption" style="max-width: 270px;">{{ props.caption }}</p>
     </div>
   </div>
 </template>

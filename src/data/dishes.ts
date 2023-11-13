@@ -1,12 +1,14 @@
-export const categories = [
-	{ id: 0, title: 'Burgers', icon: '/src/assets/images/dishes/icons/'},
+import { Category, Dish } from '@/data/types'
+
+export const categories: Category[] = [
+	{ id: 0, title: 'Burgers', icon: '/src/assets/images/dishes/icons/burgers.png'},
 	{ id: 1, title: 'Pizza', icon: '/src/assets/images/dishes/icons/pizza.png'},
 	{ id: 2, title: 'Sushi', icon: '/src/assets/images/dishes/icons/sushi.png'},
 	{ id: 3, title: 'Drinks', icon: '/src/assets/images/dishes/icons/soda.png'},
 	{ id: 4, title: 'Ice Cream', icon: '/src/assets/images/dishes/icons/ice_cream.png'},
 ]
 
-export const dishes = [
+export const dishes: Dish[] = [
 	// Бургеры
 	{ id: 1, categoryId: 0, title: 'HamBurger', price: 5.99, img: 'src/assets/images/dishes/photos/burgers/HamBurger.png' },
 	{ id: 2, categoryId: 0, title: 'CheeseBurger', price: 6.99, img: 'src/assets/images/dishes/photos/burgers/CheeseBurger.png' },

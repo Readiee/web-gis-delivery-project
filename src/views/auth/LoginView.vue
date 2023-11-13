@@ -4,7 +4,7 @@
       <v-card class=" d-flex flex-column" width="450">
         <h2 class="text-center font-weight-black mb-8">Log in</h2>
 
-        <v-text-field class="mb-3" v-bind="email" name="email" label="Email" />
+        <v-text-field class="mb-3" v-bind="phone" name="phone" label="Phone" />
         <v-text-field class="mb-5" type="password" v-bind="password" name="password" label="Password" />
 
         <btn-validate text="Log in" size="large" type="submit" />
@@ -21,11 +21,13 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
 import BtnValidate from '@/components/UI/BtnValidate.vue'
+import { useAuthStore } from '../../store/auth'
 
 const router = useRouter()
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
 const schema = yup.object({
-	email: yup.string().email().required(),
+	phone: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 	password: yup.string().min(4).required()
 })
 
@@ -39,16 +41,19 @@ const vuetifyConfig = (state) => ({
 	},
 })
 
-const email = defineComponentBinds('email', vuetifyConfig)
+const phone = defineComponentBinds('phone', vuetifyConfig)
 const password = defineComponentBinds('password', vuetifyConfig)
 
 let loading = ref(false)
 
+const { login, user, loggedIn } = useAuthStore()
+
 const onSubmit = handleSubmit((values) => {
 	loading.value = true
-	console.log(values) // actions with formdata
+	login('Bulat', values.phone)
 	resetForm()
 	loading.value = false
+	router.push({ name: 'home' })
 })
 </script>
 

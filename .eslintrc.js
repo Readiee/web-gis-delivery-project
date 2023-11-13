@@ -20,6 +20,7 @@ module.exports = {
 				},
 			},
 		],
+		'multiline-html-element-content-newline': 'off',
 
 		semi: [2, 'never'],
 		quotes: [2, 'single', { avoidEscape: true }],

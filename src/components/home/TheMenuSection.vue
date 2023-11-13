@@ -26,7 +26,7 @@
 
       <div class="dish-list">
         <template v-for="dish in dishes" :key="dish.id">
-          <dish-item :img="dish.img" :title="dish.title" :price="dish.price" />
+          <dish-item :dish="dish" />
         </template>
       </div>
     </v-container>
