@@ -24,7 +24,7 @@ export const useAuthStore = defineStore('auth', {
 			useAuthStore().user.id = 1
 			useAuthStore().user.name = name
 			useAuthStore().user.phone = phone
-			useAuthStore().user.address = ''
+			useAuthStore().user.address = 'Borisova Street 3'
 			useAuthStore().loggedIn = true
 
 		},

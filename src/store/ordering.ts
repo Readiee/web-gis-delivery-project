@@ -5,7 +5,7 @@ import { Order } from '@/data/types'
 import { useCartStore } from '@/store/cart'
 
 const { user } = useAuthStore()
-const { items } = useCartStore()
+const { items, totalPrice } = useCartStore()
 
 export const useOrderingStore = defineStore('ordering', () => {
 	const order = ref<Order>({
@@ -14,9 +14,10 @@ export const useOrderingStore = defineStore('ordering', () => {
 		address: user.address,
 		items: items,
 		comment: '',
-		payMethod: ''
+		payMethod: '',
+		delieveryPrice: 3,
 	})
-	
+
 	function setAddress(address: string) {
 		order.value.address = address
 	}
@@ -29,11 +30,21 @@ export const useOrderingStore = defineStore('ordering', () => {
 		order.value.payMethod = payMethod
 	}
 
+	function setDeliveryPrice(delieveryPrice: number) {
+		order.value.delieveryPrice = delieveryPrice
+	}
+
+	function orderAmount() {
+		return totalPrice() + order.value.delieveryPrice
+	}
+
 	return {
 		order,
 		setAddress,
 		setComment,
-		setPayMethod
+		setDeliveryPrice,
+		setPayMethod,
+		orderAmount,
 	}
 })
 

@@ -33,6 +33,7 @@ export interface Order {
     address: string;
     phone: string;
     comment: string,
-    payMethod: string
+    payMethod: string,
+    delieveryPrice: number
 }
 
