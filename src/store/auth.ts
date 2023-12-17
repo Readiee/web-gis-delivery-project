@@ -4,13 +4,30 @@ import { ref } from 'vue'
 
 export const useAuthStore = defineStore('auth', {
 	state: () => ({
+		// user: {
+		// 	id: 0,
+		// 	name: '',
+		// 	phone: '',
+		// 	address: ''
+		// } as User,
+		// loggedIn: ref(false)
+
 		user: {
-			id: 0,
-			name: '',
-			phone: '',
-			address: ''
+			id: 1,
+			name: 'Bulat',
+			phone: '123932132',
+			address: {
+				city: 'Krasnoyarsk',
+				house_number: '3',
+				road: 'Borisova',
+				building: '',
+				entrance: '',
+				floor: '',
+				flat: '',
+				comment: '',
+			}
 		} as User,
-		loggedIn: ref(false)
+		loggedIn: ref(true)
 	}),
   
 	// getters: {
@@ -24,7 +41,16 @@ export const useAuthStore = defineStore('auth', {
 			useAuthStore().user.id = 1
 			useAuthStore().user.name = name
 			useAuthStore().user.phone = phone
-			useAuthStore().user.address = 'Borisova Street 3'
+			useAuthStore().user.address = {
+				city: 'Krasnoyarsk',
+				house_number: '3',
+				road: 'Borisova',
+				building: '',
+				entrance: '',
+				floor: '',
+				flat: '',
+				comment: '',
+			}
 			useAuthStore().loggedIn = true
 
 		},
@@ -33,7 +59,16 @@ export const useAuthStore = defineStore('auth', {
 			useAuthStore().user.id = 0
 			useAuthStore().user.name = ''
 			useAuthStore().user.phone = ''
-			useAuthStore().user.address = ''
+			useAuthStore().user.address = {
+				city: '',
+				house_number: '',
+				road: '',
+				building: '',
+				entrance: '',
+				floor: '',
+				flat: '',
+				comment: '',
+			}
 			useAuthStore().loggedIn = false
 		},
 	},

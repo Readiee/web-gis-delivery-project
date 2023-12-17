@@ -1,5 +1,7 @@
 <template>
-  ContactView
+  <v-container>
+    ContactView
+  </v-container>
 </template>
 
 <script setup lang="ts">

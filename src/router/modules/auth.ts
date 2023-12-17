@@ -14,5 +14,13 @@ export default [
 		meta: {
 			middleware: true // Только для неавторизованных
 		}
-	}
+	},
+	{
+		path: '/history',
+		name: 'history',
+		component: () => import('@/views/HistoryView.vue'),
+		meta: {
+			middleware: true // Только для авторизованных
+		}
+	},
 ]

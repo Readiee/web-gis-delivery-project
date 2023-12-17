@@ -1,5 +1,7 @@
 <template>
-  ServicesView
+  <v-container>
+    ServicesView
+  </v-container>
 </template>
 
 <script lang="ts" setup>

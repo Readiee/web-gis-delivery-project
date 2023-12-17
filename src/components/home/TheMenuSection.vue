@@ -39,7 +39,7 @@ import { dishes as data } from '@/data/dishes'
 import { categories } from '@/data/dishes'
 import DishItem from '@/components/cards/DishItem.vue'
 
-const selectedCategoryId = ref(categories[1].id)
+const selectedCategoryId = ref(categories[0].id)
 
 const isSelected = (categoryId) => {
 	return categoryId == selectedCategoryId.value

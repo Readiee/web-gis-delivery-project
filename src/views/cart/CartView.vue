@@ -18,7 +18,7 @@
         <div class="content-block__footer mt-12">
           <div class="d-flex align-center">
             <h3 class="ml-auto mr-8">Order amount: </h3>
-            <h2>{{ totalPrice() }} $</h2>
+            <h2>{{ totalPrice().toFixed(2) }} $</h2>
           </div>
           <div class="actions d-flex mt-8">
             <v-btn prepend-icon="arrow_back_ios" color="grey" class="mr-auto" @click="router.push({ name: 'home' })">Back to menu</v-btn>

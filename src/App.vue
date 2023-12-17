@@ -87,6 +87,7 @@ import TheCartComponent from '@/components/TheCartComponent.vue'
 import { useAuthStore } from './store/auth'
 import ListItem from './components/UI/ListItem.vue'
 import { computed } from 'vue'
+import { Field } from 'vee-validate'
 
 const router = useRouter()
 const routes = [
@@ -252,6 +253,52 @@ h2 {
   max-height: calc(100vh - 100px);
   overflow-y: auto;
 }
+
+.leaflet-control-attribution  {
+	display: none !important;
+}
+
+
+.geo-marker {
+    /* Set the marker size here */
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem;
+    /* Set the marker color here */
+    background: $color-primary;
+
+    display: inline-block;
+    border-bottom-right-radius: 0;
+    position: relative;
+    transform: rotate(45deg);
+
+    border: 1px solid $color-primary;
+}
+.geo-marker::before {
+    content: "";
+    background: white;
+    width: 50%;
+    height: 50%;
+    border-radius: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem rgba(0, 0, 0, 0.1);
+}
+.geo-marker::after {
+    content: "";
+    background: rgba(128, 128, 128, 0.2);
+    width: 75%;
+    height: 75%;
+    border-radius: 100%;
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    transform: translate(-50%, -50%) rotate(45deg) scaleX(0.5);
+}
+
 
 
 </style>

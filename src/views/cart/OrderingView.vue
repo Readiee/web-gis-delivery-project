@@ -10,7 +10,7 @@
           <v-divider class="mt-4" />
           <div class="order-items__item"><p>Delievery</p><p>{{ order.delieveryPrice }}$</p></div>
           <v-divider class="my-2" />
-          <div class="order-items__item mt-4"><h4>Order amount</h4><h4>{{ orderAmount() }}$</h4></div>
+          <div class="order-items__item mt-4"><h4>Order amount</h4><h4>{{ orderAmount().toFixed(2) }}$</h4></div>
         </v-card>
 
         <div class="content-block__header mb-8">
@@ -29,18 +29,37 @@
 
             <div class="data-position mb-2">
               <p class="data-position__title me-10">Delivery address</p>
-              <v-dialog width="600">
+              <v-dialog width="800">
                 <template #activator="{ props }">
-                  <div v-bind="props">
-                    <textarea-btn :text="order.address" />
+                  <div v-bind="props" @click="setDefaultAddress()">
+                    <textarea-btn :text="addressText" />
                   </div>
                 </template>
 
                 <template #default="{ isActive }">
                   <v-card>
                     <h3 class="mb-4">Enter the address</h3>
-                    <!-- INTERACTIVE MAP HERE -->
-                    <v-btn text="Confirm" @click="isActive.value = false" />
+                    <form @submit.prevent="confirmAddress()">
+                      <div class="address-inputs">
+                        <v-text-field v-model="address.city" name="city" label="City" />
+                        <div class="inputs-group">
+                          <v-text-field v-model="address.road" name="road" label="Road" />
+                          <v-text-field v-model="address.house_number" name="house_number" label="House number" />
+                        </div>
+                        <div class="inputs-group">
+                          <v-text-field v-model="address.building" name="building" label="Building" />
+                          <v-text-field v-model="address.entrance" name="entrance" label="Entrance" />
+                        </div>
+                        <div class="inputs-group">
+                          <v-text-field v-model="address.floor" name="floor" label="Floor" />
+                          <v-text-field v-model="address.flat" name="flat" label="Flat" />
+                        </div>
+                      </div>
+                      <!-- INTERACTIVE MAP HERE -->
+                      <AppMap v-model="address" />
+                    
+                      <v-btn :disabled="!isValid" type="submit" class="mt-5" text="Confirm" style="width: 100%;" @click="isActive.value = false;" />
+                    </form>
                   </v-card>
                 </template>
               </v-dialog>
@@ -76,7 +95,7 @@
             <div class="actions d-flex mt-10" style="width: 600px;">
               <v-btn prepend-icon="arrow_back_ios" color="grey" class="mr-auto" @click="router.push({ name: 'cart' })">Back to cart</v-btn>
               <v-btn 
-                :disabled="loading"
+                :disabled="loading || cartIsEmpty"
                 :loading="loading" 
                 color="primary"
                 @click="confirmOrder()"
@@ -93,18 +112,27 @@
 
 <script setup lang="ts">
 import TextareaBtn from '@/components/UI/TextareaBtn.vue'
+import AppMap from '@/components/AppMap.vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 import { useOrderingStore } from '@/store/ordering'
-import { ref } from 'vue'
+import { ref, computed, toRaw } from 'vue'
+import { Address } from '@/data/types'
+
+import { orders } from '@/data/orders'
+import { useCartStore } from '@/store/cart'
 
 const { user } = useAuthStore()
-const { order, orderAmount } = useOrderingStore()
+const { order, orderAmount, resetOrder } = useOrderingStore()
+const { clearCart } = useCartStore()
 
 const router = useRouter()
 
-const paymentMethod = ref('')
+const paymentMethod = ref('Credit card')
 const orderComment = ref('')
+const cartIsEmpty = computed(() => {
+	return order.items.length < 1
+}) 
 
 const confirmPaymentMethod = (isActive) => { 
 	order.payMethod = paymentMethod.value
@@ -112,17 +140,99 @@ const confirmPaymentMethod = (isActive) => {
 }
 
 const loading = ref(false)
+
 const confirmOrder = () => {
 	loading.value = true
 	setTimeout(() => {
-		alert('Success')
+		order.date = new Date()
+		order.id = orders.length + 1
+		console.log(order)
+		console.log(order.id)
+    
+		orders.push({
+			id: toRaw(order.id),
+			user: toRaw(order.user),
+			items: toRaw(order.items),
+			address: toRaw(order.address),
+			phone: toRaw(order.phone),
+			comment: toRaw(order.comment),
+			payMethod: toRaw(order.payMethod),
+			delieveryPrice: toRaw(order.delieveryPrice),
+			date: toRaw(order.date),
+		})
+		router.push( { name: 'history'} )
+		clearCart()
 		loading.value = false
 	}, 1000)
 }
 
+
+const address = ref<Address>({
+	city: '',
+	house_number: '',
+	road: '',
+	building: '',
+	entrance: '',
+	floor: '',
+	flat: '',
+	comment: '',
+})
+
+const addressText = computed(() => {
+	const city = order.address.city ? order.address.city : ''
+	const road = order.address.road ? ', ' + order.address.road : ''
+	const house_number = order.address.house_number ? ', ' + order.address.house_number : ''
+	const building = order.address.building ? ', ' + order.address.building : ''
+	const entrance = order.address.entrance ? ', ' + order.address.entrance : ''
+	const floor = order.address.floor ? ', ' + order.address.floor : ''
+	const flat = order.address.flat ? ', ' + order.address.flat : ''
+
+	return city + road + house_number + building + entrance + floor + flat
+})
+
+const confirmAddress = () => { 
+	order.address.city = address.value.city
+	order.address.house_number = address.value.house_number
+	order.address.road = address.value.road
+	order.address.building = address.value.building
+	order.address.entrance = address.value.entrance
+	order.address.floor = address.value.floor
+	order.address.flat = address.value.flat
+	order.address.comment = address.value.comment
+}
+
+const isValid = computed(() => {
+	if (address.value.city && address.value.road && address.value.house_number) {
+		return address.value.city.trim() != '' && address.value.road.trim() != '' && address.value.house_number.trim() != ''
+	}
+	else return false
+})
+
+const setDefaultAddress = () => {
+	address.value.city = order.address.city 
+	address.value.house_number = order.address.house_number 
+	address.value.road = order.address.road 
+	address.value.building = order.address.building 
+	address.value.entrance = order.address.entrance 
+	address.value.floor = order.address.floor 
+	address.value.flat = order.address.flat 
+	address.value.comment = order.address.comment 
+}
+
+
+
 </script>
 
 <style scoped lang="scss">
+.inputs-group {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+
+        .v-text-field {
+          width: 50%;
+        }
+      }
 .v-container {
   .main {
     position: relative;

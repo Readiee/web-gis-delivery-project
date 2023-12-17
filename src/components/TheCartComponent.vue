@@ -19,11 +19,11 @@
 
         <div class="d-flex align-center font-weight-bold">
           <h3>Order amount: </h3>
-          <h2 class="ml-auto ">{{ totalPrice() }} $</h2>
+          <h2 class="ml-auto ">{{ totalPrice().toFixed(2) }} $</h2>
         </div>
 
         <div>
-          <v-btn style="width: 100%; margin-top: 15px;" @click="router.push({ name: 'cart' })">Make the order</v-btn>
+          <v-btn style="width: 100%; margin-top: 15px;" @click="router.push({ name: 'cart' }); emit('closeDialog')">Make the order</v-btn>
         </div>
       </v-list>  
     </template>
@@ -43,6 +43,8 @@ import { useRouter } from 'vue-router'
 const { items, totalPrice, addToCart, removeFromCart, totalItems, removeAllFromCart } = useCartStore()
 
 const router = useRouter()
+
+const emit = defineEmits(['closeDialog'])
 </script>
 
 <style scoped>

@@ -14,26 +14,41 @@ export interface Category {
 
 export interface CartItem {
     id: number, 
-    title: string;
-    price: number;
+    title: string,
+    price: number,
     quantity: number;
     img: string;
 }
 
 export interface User {
     id: number, 
-    name: string;
-    phone: string;
-    address: string;
+    name: string,
+    phone: string,
+    address: Address,
 }
 
 export interface Order {
+    id: number,
     user: User,
     items: CartItem[],
-    address: string;
-    phone: string;
+    address: Address,
+    phone: string,
     comment: string,
     payMethod: string,
     delieveryPrice: number
+    date: Date,
 }
+
+export interface Address {
+    city: string,
+    house_number: string,
+    road: string,
+    building: string,
+    entrance: string,
+    floor: string,
+    flat: string,
+    comment: string,
+}
+
+
 
